@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.views import generic
 from django.core.files.storage import FileSystemStorage
 from django.utils import timezone
@@ -38,7 +38,12 @@ def perform(request):
 				)
 		image.save()
 
-		return render(
-			request,
-			'test.html',
-		)
+
+
+		response_data = {}
+		response_data['result'] = 'test'
+		return JsonResponse({ 'name': filename })
+		# return render(
+		# 	request,
+		# 	'test.html',
+		# )

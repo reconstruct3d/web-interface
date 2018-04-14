@@ -15,7 +15,7 @@ $(function () {
     'use strict';
 
     // Initialize the jQuery File Upload widget:
-    var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+    var csrftoken = $("[name=csrfmiddlewaretoken]").val();
 
     $('#fileupload').fileupload({
         // Uncomment the following to send cross-domain cookies:
@@ -23,18 +23,25 @@ $(function () {
         url: '/reconstructor/perform',
         formData: [
             { name: 'csrfmiddlewaretoken', value: csrftoken }
-        ]
-    });
+        ],
+    }).bind('fileuploaddone', function (e, data) {
+        // Start the spinner.
+        $('#result').show()
+        $('#result').spin({color:'#8A89FF', radius: 65, lines: 60})
 
-    // Enable iframe cross-domain access via redirect option:
-    // $('#fileupload').fileupload(
-    //     'option',
-    //     'redirect',
-    //     window.location.href.replace(
-    //         /\/[^\/]*$/,
-    //         '/cors/result.html?%s'
-    //     )
-    // );
+        // Send POST request to start reconstruction.
+        $.ajax({
+            url: "/reconstructor/reconstruct",
+            type: 'POST',
+            data: {'csrfmiddlewaretoken': $("[name=csrfmiddlewaretoken]").val()},
+            success: function(result){
+                alert(result);
+            }
+        });
+
+        // Stopt the spinner.
+        $('#result').spin(false)
+    });
 
     // Load existing files:
     $('#fileupload').addClass('fileupload-processing');
