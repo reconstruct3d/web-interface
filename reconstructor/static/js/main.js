@@ -10,6 +10,7 @@
  */
 
 /* global $, window */
+var plyFileName;
 
 $(function () {
     'use strict';
@@ -35,12 +36,16 @@ $(function () {
             type: 'POST',
             data: {'csrfmiddlewaretoken': $("[name=csrfmiddlewaretoken]").val()},
             success: function(result){
-                alert(result);
+                // Stop the spinner.
+                $('#result').spin(false)
+
+                // Display the ply file.
+                plyFileName = 'jesus_nview.ply'
+                $.getScript("/static/js/render-point-cloud.js", function(){
+                });
             }
         });
 
-        // Stopt the spinner.
-        $('#result').spin(false)
     });
 
     // Load existing files:
