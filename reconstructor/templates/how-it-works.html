@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/png" href="{% static "logos/logo-blue.svg" %}"/>
+
+    <title>Reconstruct3D</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static "bootstrap/css/bootstrap3.min.css" %}" rel="stylesheet">
+    <style type="text/css" media="screen">
+        @media (min-width: 768px) {
+        .navbar-brand.abs
+            {
+                position: absolute;
+                width: 100%;
+                left: 0;
+                text-align: center;
+            }
+        }
+
+        #procedure {
+            background-color:lightyellow;
+            position: relative;
+            text-align: middle;
+            /*height: 300px;*/
+        }
+
+        p { 
+            text-indent: 30px;
+            font-size: 12pt;
+        }
+    </style>
+
+
+  </head>
+
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand abs" href="#">3D Reconstruction from Video</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="/">Home <span class="sr-only">(current)</span></a></li>
+            <li class="active"><a href="#">How it Works?</a></li>
+            <li><a href="contact">Team</a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container" id="procedure">
+      <div class="row">
+        <div class="col-lg-12">
+          <h2>Reconstruction Procedure</h2>
+          <p class="#lead">Given sequence of images of a static environment, the task is to compute its 3D
+            model / mesh. To achieve this, we apply epipolar geometry techniques. The main steps involved in
+            this process are listed below:
+         </p><br/>
+
+          <h3>1. Feature Matching</h3>
+          <p>A set of 2D point correspondences are required for various
+            steps. First, two video frames are selected and 2D point correspondences
+            are found using an automated algorithm. Specifically, we used SIFT (Scale Invariant Feature Transform) algorithm for computing features across
+            the two images. These features are matched using the nearest neighbor technique
+            (L2 Norm is used as a distance metric).
+          </p>
+
+          <h3>2. Fundamental Matrix Estimation</h3>
+          <p>Feature matching algorithms often match wrong correspondences that adds
+            an overhead for removing outliers points i.e false correspondences. Due to
+            this reason, 8 point algorithm is used in conjunction with random sample
+            consensus (RANSAC). Precisely, the algorithm proceeds as follows:
+            <ol>
+                <li>Pick any 8 random sample points and assume them to be correct correspondences</li>
+                <li>Run 8 point algorithm using the points picked in previous step</li>
+                <li>Count the number of inliers</li>
+                <li>Go to step 1 unless number of pre-specified iterations are completed</li>
+                <li>Finally, the fundamental matrix F having the most inliers is assumed to be the correct one</li>
+            </ol>
+          </p>
+
+          <h3>3. Pose Estimation</h3>
+          <p>Once the fundamental matrix F is computed, we compute
+            essential matrix to ultimately compute four possible camera projection
+            matrices. The ambiguity among the four matrices is resolved through point
+            triangulation i.e checking which P among the four projects all 2D image
+            points in-front of them (z >= 0).
+          </p>
+
+          <h3>4. Triangulation</h3>
+          <p>Now that we have point correspondences x1, x2, ..., xn (corresponding to the
+            same 3D point in real scene) and camera matrices P1, P2, ... ,Pn computed
+            for each image I1, I2, ..., In , we can use the linear triangulation equation to solve for X.
+            We use singular value decomposition of the left matrix to get U DV T ,
+            where the last column of V is the back-projected 3D point.
+          </p>
+
+          <h3>5. Perspective-n-Point</h3>
+          <p>SIFT features of the next frame are computed again to ultimately match 2D
+            feature coordinates with 3D points already triangulated (in previous step).
+            Now that we have a set of X ↔ x correspondences and camera intrinsic
+            parameters K, we can use the Linear Standard Method equation to solve for camera projection matrix
+            P . And we do so using, again, singular value decomposition.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </body>
+
+</html>
