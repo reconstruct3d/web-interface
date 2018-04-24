@@ -4,6 +4,8 @@ from django.views import generic
 from django.core.files.storage import FileSystemStorage
 from django.utils import timezone
 
+import os
+import shutil
 from .models import Image
 
 def index(request):
@@ -47,3 +49,17 @@ def perform(request):
 		# 	request,
 		# 	'test.html',
 		# )
+
+"""Delete all existing images (from database and directory)"""
+def reset(request):
+	if request.method == 'GET':
+		# Clear the directory.
+		shutil.rmtree('/media/adeel/643459A034597650/Academics/Semester VIII/FYP-II/code/web_interface/images')
+		os.makedirs('/media/adeel/643459A034597650/Academics/Semester VIII/FYP-II/code/web_interface/images')
+
+		# shutil.rmtree('/root/FYP/web_interface/images')
+		# os.makedirs('/root/FYP/web_interface/images')
+
+		# Remove records from database.
+		Image.objects.all().delete()
+		return JsonResponse({ 'status': 'success' })
