@@ -7,8 +7,8 @@ from django.utils import timezone
 import os
 import sys
 
-# sys.path.insert(0, '/root/FYP/SfM/src')
-# from main import *
+sys.path.insert(0, '/root/FYP/SfM/src')
+from main import *
 
 from .models import Image
 
@@ -35,8 +35,9 @@ def reconstruct(request):
 		# Send file paths to all images.
 		imgNames = []
 		for image in images:
+			print(image.file_name)
 			imgNames.append('/root/FYP/web-interface/images/' + image.file_name)
-			main(opts, imgNames, fileName)
+		main(opts, imgNames, fileName)
 	
 		return HttpResponse('test')
 	# return render(

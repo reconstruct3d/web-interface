@@ -50,15 +50,32 @@ def perform(request):
 		# 	'test.html',
 		# )
 
+"""List all the steps involved in reconstruction"""
+def procedure(request):
+	if request.method == 'GET':
+		return render(
+			request,
+			'how-it-works.html',
+		)
+
+"""Return the contacts page"""
+def contact(request):
+	if request.method == 'GET':
+		return render(
+			request,
+			'contact.html',
+		)
+
+
 """Delete all existing images (from database and directory)"""
 def reset(request):
 	if request.method == 'GET':
 		# Clear the directory.
-		shutil.rmtree('/media/adeel/643459A034597650/Academics/Semester VIII/FYP-II/code/web_interface/images')
-		os.makedirs('/media/adeel/643459A034597650/Academics/Semester VIII/FYP-II/code/web_interface/images')
+		# shutil.rmtree('/media/adeel/643459A034597650/Academics/Semester VIII/FYP-II/code/web_interface/images')
+		# os.makedirs('/media/adeel/643459A034597650/Academics/Semester VIII/FYP-II/code/web_interface/images')
 
-		# shutil.rmtree('/root/FYP/web_interface/images')
-		# os.makedirs('/root/FYP/web_interface/images')
+		shutil.rmtree('/root/FYP/web_interface/images')
+		os.makedirs('/root/FYP/web_interface/images')
 
 		# Remove records from database.
 		Image.objects.all().delete()

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/png" href="{% static "logos/logo-blue.svg" %}"/>
+
+    <title>Reconstruct3D</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static "bootstrap/css/bootstrap3.min.css" %}" rel="stylesheet">
+    <style type="text/css" media="screen">
+        @media (min-width: 768px) {
+        .navbar-brand.abs
+            {
+                position: absolute;
+                width: 100%;
+                left: 0;
+                text-align: center;
+            }
+        }
+
+         /* Three columns side by side */
+        .column {
+            float: left;
+            width: 33.3%;
+        }
+
+        /* Display the columns below each other instead of side by side on small screens */
+        @media screen and (max-width: 650px) {
+            .column {
+                width: 100%;
+                display: block;
+            }
+        }
+
+        /* Add some shadows to create a card effect */
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        }
+
+
+        .title {
+            color: grey;
+        }
+
+        .contact_button {
+            border: none;
+            outline: 0;
+            display: inline-block;
+            padding: 8px;
+            color: white;
+            background-color: #000;
+            text-align: center;
+            cursor: pointer;
+            width: 29%;
+        }
+
+        .contact_button:hover {
+            background-color: #555;
+        } 
+
+        h2 {
+            margin-left: 60px;
+        }
+
+        .row-centered {
+            overflow-x:hidden;
+            text-align:center;
+        }
+        .col-centered {
+            display:inline-block;
+            float:none;
+            /* reset the text-align */
+            text-align:left;
+            /* inline-block space fix */
+        }
+    </style>
+
+
+  </head>
+
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand abs" href="#">3D Reconstruction from Video</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="/">Home <span class="sr-only">(current)</span></a></li>
+            <li><a href="how-it-works">How it Works?</a></li>
+            <li class="active"><a href="contact">Team</a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="container">
+       <div class="row row-centered">
+        <div class="col-md-4 col-centered">
+          <div class="card">
+            <img src="{% static "images/muneeb.jpg" %}" alt="muneeb" style="width:100%">
+            <div class="container">
+              <h2>Muneeb Aadil</h2>
+              <p><a class="contact_button" href="mailto:imuneebaadil@gmail.com">Contact</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-centered">
+          <div class="card">
+            <img src="{% static "images/adeel.jpg" %}" alt="adeel" style="width:100%">
+            <div class="container">
+              <h2>Adeel Ahmad</h2>
+              <p><a class="contact_button" href="mailto:adeelahmad14@hotmail.com">Contact</a></p>
+            </div>
+          </div>
+        </div>
+      </div>  
+    </div>
+
+    <!-- Page Content -->
+  </body>
+
+</html>
