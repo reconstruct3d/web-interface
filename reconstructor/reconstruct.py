@@ -4,12 +4,12 @@ from django.views import generic
 from django.core.files.storage import FileSystemStorage
 from django.utils import timezone
 
-import sys
 import os
-sys.path.insert(0, '/root/FYP/SfM/src')
-from main import *
+import sys
 
-# from pathlib import Path
+# sys.path.insert(0, '/root/FYP/SfM/src')
+# from main import *
+
 from .models import Image
 
 def reconstruct(request):
@@ -18,23 +18,25 @@ def reconstruct(request):
 	"""
 	# Perform validation.
 	if request.method == 'POST':
-		imgNames = ['/root/FYP/SfM/data/fountain-P11/images/0004.jpg','/root/FYP/SfM/data/fountain-P11/images/0005.jpg',
-                '/root/FYP/SfM/data/fountain-P11/images/0005.jpg']
-
+		#imgNames = ['/root/FYP/SfM/data/fountain-P11/images/0004.jpg','/root/FYP/SfM/data/fountain-P11/images/0005.jpg',
+                #'/root/FYP/SfM/data/fountain-P11/images/0005.jpg']
+		fileName = 'reconstructor/static/ply/new.ply'
 		parser = argparse.ArgumentParser()
 		SetArguments(parser)
 		opts = parser.parse_args()
-		main(opts, imgNames)
+		#main(opts, imgNames, fileName)
 		#path = os.environ['RECONSTRUCTOR_PATH']
 
 		# Get all images using session ID.
-		#images = Image.objects.filter(session_id = request.session.session_key)
+		images = Image.objects.filter(session_id = request.session.session_key)
 
 		# Import the library.
 		
 		# Send file paths to all images.
-		#for image in images:
-		#	print(image.file_name)
+		imgNames = []
+		for image in images:
+			imgNames.append('/root/FYP/web-interface/images/' + image.file_name)
+			main(opts, imgNames, fileName)
 	
 		return HttpResponse('test')
 	# return render(
