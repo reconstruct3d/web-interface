@@ -74,8 +74,8 @@ def reset(request):
 		# shutil.rmtree('/media/adeel/643459A034597650/Academics/Semester VIII/FYP-II/code/web_interface/images')
 		# os.makedirs('/media/adeel/643459A034597650/Academics/Semester VIII/FYP-II/code/web_interface/images')
 
-		shutil.rmtree('/root/FYP/web_interface/images')
-		os.makedirs('/root/FYP/web_interface/images')
+		shutil.rmtree('/root/FYP/web-interface/images')
+		os.makedirs('/root/FYP/web-interface/images')
 
 		# Remove records from database.
 		Image.objects.all().delete()

@@ -23,7 +23,6 @@ def reconstruct(request):
                 #'/root/FYP/SfM/data/fountain-P11/images/0005.jpg']
 		fileName = 'reconstructor/static/ply/new.ply'
 
-		Apply feature matching.
 		parser = argparse.ArgumentParser()
 		SetArgumentsFeatMatch(parser)
 		opts = parser.parse_args()
@@ -50,11 +49,10 @@ def reconstruct(request):
 		for image in images:
 			print(image.file_name)
 			imgNames.append('/root/FYP/web-interface/images/' + image.file_name)
-		# main(opts, imgNames, fileName)
+		#main(opts, imgNames, fileName)
 	
 		return HttpResponse('test')
 	# return render(
 	#	request,
 	#	'index.html',
 	# )
-

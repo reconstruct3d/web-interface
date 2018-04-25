@@ -25,7 +25,7 @@ $(function () {
         formData: [
             { name: 'csrfmiddlewaretoken', value: csrftoken }
         ],
-    }).bind('fileuploaddone', function (e, data) {
+    }).bind('fileuploadstop', function (e, data) {
         // Start the spinner.
         $('#result').show()
         $('#result').spin({color:'#8A89FF', radius: 65, lines: 60})
@@ -40,7 +40,7 @@ $(function () {
                 $('#result').spin(false)
 
                 // Display the ply file.
-                plyFileName = 'new_colored.ply'
+                plyFileName = 'sfm_colored.ply'
                 $.getScript("/static/js/render-point-cloud.js", function(){
                 });
             }
