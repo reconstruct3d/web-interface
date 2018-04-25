@@ -43,7 +43,35 @@
             text-align:center;
         }
 
-    </style>
+        .navbar-default {
+            background-color: #97bdfc;
+            border-color: #7cadff;
+        }
+
+        . navbar-nav .active {
+            background-color: #97bdfc;
+            border-color: #7cadff;
+        }
+
+        .navbar-default .navbar-nav > .active > a,
+        .navbar-default .navbar-nav > .active > a:hover,
+        .navbar-default .navbar-nav > .active > a:focus {
+            color: #555;
+            background-color: #6ba0f9;
+        }
+
+}
+
+
+@media (max-width: 767px) {
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+        color: #777;
+    }
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+          color: #333;
+    }
+}    </style>
 
   </head>
 
@@ -86,7 +114,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="reconstructor">Home <span class="sr-only">(current)</span></a></li>
+            <li class="active"><a href="/">Home <span class="sr-only">(current)</span></a></li>
             <li><a href="how-it-works">How it Works?</a></li>
             <li><a href="contact">Team</a></li>
           </ul>
@@ -121,6 +149,7 @@
         </blockquote>
         <br>
         <!-- The file upload form used as target for the file upload widget -->
+        <!-- Single button -->
         <form id="fileupload" action="/reconstructor/perform" method="POST" enctype="multipart/form-data">{% csrf_token %}
             <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
             <div class="row fileupload-buttonbar">
@@ -160,7 +189,18 @@
             <!-- The table listing the files available for upload/download -->
             <table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
         </form>
-        <br>
+        <div  id="dataset" class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            Choose an existing point cloud <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li><a id="herz_dataset" href="#">Herz-jesus-p8</a></li>
+            <li><a href="#">Fountain-p11</a></li>
+            <li><a href="#">Entry-p10</a></li>
+          </ul>
+        </div>
+
+        <br/><br/>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Notes</h3>
@@ -205,6 +245,36 @@
         </tr>
     </script>
 
+    <script type="text/javascript">
+        $(function () {
+            $('.toggle').change(function () {                
+                $('#dataset').toggle(this.checked);
+            }).change(); //ensure visible state matches initially
+        });
+
+        $("#herz_dataset").click(function(e) {
+            // Display the ply file.
+            $('#result').show()
+            plyFileName = 'new_colored.ply'
+            $.getScript("/static/js/render-point-cloud.js", function(){
+            });
+
+            // $.ajax({
+            //     type: "GET",
+            //     url: "/dataset/test/",
+            //     data: { 
+            //         id: $(this).val(), // < note use of 'this' here
+            //         access_token: $("#access_token").val() 
+            //     },
+            //     success: function(result) {
+            //         alert('ok');
+            //     },
+            //     error: function(result) {
+            //         alert('error');
+            //     }
+            // });
+        });
+    </script>
     <!-- The template to display files available for download -->
     <script id="template-download" type="text/x-tmpl">
     <p>Files successfully uploaded!</p>

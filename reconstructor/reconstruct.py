@@ -8,7 +8,8 @@ import os
 import sys
 
 sys.path.insert(0, '/root/FYP/SfM/src')
-from main import *
+from featmatch import *
+from sfm import *
 
 from .models import Image
 
@@ -21,9 +22,21 @@ def reconstruct(request):
 		#imgNames = ['/root/FYP/SfM/data/fountain-P11/images/0004.jpg','/root/FYP/SfM/data/fountain-P11/images/0005.jpg',
                 #'/root/FYP/SfM/data/fountain-P11/images/0005.jpg']
 		fileName = 'reconstructor/static/ply/new.ply'
+
+		Apply feature matching.
+		parser = argparse.ArgumentParser()
+		SetArgumentsFeatMatch(parser)
+		opts = parser.parse_args()
+		FeatMatch(opts)
+
+		# Run the SfM pipeline.
 		parser = argparse.ArgumentParser()
 		SetArguments(parser)
 		opts = parser.parse_args()
+		PostprocessArgs(opts)
+
+		sfm = SFM(opts)
+		sfm.Run()
 		#main(opts, imgNames, fileName)
 		#path = os.environ['RECONSTRUCTOR_PATH']
 
@@ -37,10 +50,11 @@ def reconstruct(request):
 		for image in images:
 			print(image.file_name)
 			imgNames.append('/root/FYP/web-interface/images/' + image.file_name)
-		main(opts, imgNames, fileName)
+		# main(opts, imgNames, fileName)
 	
 		return HttpResponse('test')
 	# return render(
-	# 	request,
-	# 	'index.html',
+	#	request,
+	#	'index.html',
 	# )
+
