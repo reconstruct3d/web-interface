@@ -255,9 +255,16 @@
         $("#herz_dataset").click(function(e) {
             // Display the ply file.
             $('#result').show()
-            plyFileName = 'new_colored.ply'
+            plyFileName = 'new.ply'
             $.getScript("/static/js/render-point-cloud.js", function(){
-            });
+        });
+
+        $("#fountain_dataset").click(function(e) {
+            // Display the ply file.
+            $('#result').show()
+            plyFileName = 'cloud_11_view.ply'
+            $.getScript("/static/js/render-point-cloud.js", function(){
+        });
 
             // $.ajax({
             //     type: "GET",

@@ -40,7 +40,7 @@ $(function () {
                 $('#result').spin(false)
 
                 // Display the ply file.
-                plyFileName = 'sfm_colored.ply'
+                plyFileName = 'new_colored.ply'
                 $.getScript("/static/js/render-point-cloud.js", function(){
                 });
             }

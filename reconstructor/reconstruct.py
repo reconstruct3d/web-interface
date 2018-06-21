@@ -11,6 +11,8 @@ sys.path.insert(0, '/root/FYP/SfM/src')
 from featmatch import *
 from sfm import *
 
+CAL_MATRIX = 0
+
 from .models import Image
 
 def reconstruct(request):
@@ -19,6 +21,7 @@ def reconstruct(request):
 	"""
 	# Perform validation.
 	if request.method == 'POST':
+		calibration = ['benchmark', 'lg_g3']
 		#imgNames = ['/root/FYP/SfM/data/fountain-P11/images/0004.jpg','/root/FYP/SfM/data/fountain-P11/images/0005.jpg',
                 #'/root/FYP/SfM/data/fountain-P11/images/0005.jpg']
 		fileName = 'reconstructor/static/ply/new.ply'
@@ -49,7 +52,7 @@ def reconstruct(request):
 		for image in images:
 			print(image.file_name)
 			imgNames.append('/root/FYP/web-interface/images/' + image.file_name)
-		#main(opts, imgNames, fileName)
+		# main(opts, imgNames, fileName)
 	
 		return HttpResponse('test')
 	# return render(

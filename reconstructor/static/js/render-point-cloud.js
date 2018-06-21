@@ -15,15 +15,9 @@ function init() {
 
     // PLY file
     var loader = new THREE.PLYLoader();
-<<<<<<< HEAD
-    // loader.load( '/static/ply/' + plyFileName, function ( geometry ) {
-    loader.load( '/static/ply/jesus_nview.ply', function ( geometry ) {
-        var material = new THREE.PointsMaterial( { size: 2, sizeAttenuation: false, vertexColors: THREE.VertexColors } );
-=======
     loader.load( '/static/ply/' + plyFileName, function ( geometry ) {
     // loader.load( '/static/ply/jesus_nview.ply', function ( geometry ) {
         var material = new THREE.PointsMaterial( { vertexColors: THREE.VertexColors, size: 2, sizeAttenuation: false } );
->>>>>>> a9c8360c4e3a70ce95f614ed35d1e7209f2e9579
         var points = new THREE.Points( geometry, material );
         points.position.y = - 2.9;
         points.position.z =   0.3;
@@ -45,11 +39,7 @@ function init() {
     var controls = new THREE.OrbitControls( camera, renderer.domElement );
     controls.maxPolarAngle = Math.PI;
     controls.minDistance = 0.01;
-<<<<<<< HEAD
-    controls.maxDistance = 7;
-=======
     controls.maxDistance = 15;
->>>>>>> a9c8360c4e3a70ce95f614ed35d1e7209f2e9579
     container.appendChild( renderer.domElement );
 
     // resize
